@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.jxufe.lvxi.blog.core.persist.entity.article.ArticleEntity" table="tb_article_article" schema="blog">
+        <id name="id">
+            <column name="ID" sql-type="bigint(20) unsigned"/>
+        </id>
+        <property name="categoryId" insert="false" update="false">
+            <column name="categoryID" sql-type="bigint(20) unsigned"/>
+        </property>
+        <property name="identity">
+            <column name="identity" sql-type="varchar(60)" length="60"/>
+        </property>
+        <property name="writeType">
+            <column name="writeType" sql-type="tinyint(4)"/>
+        </property>
+        <property name="viewLevel">
+            <column name="viewLevel" sql-type="tinyint(4)"/>
+        </property>
+        <property name="createdDate">
+            <column name="createdDate" sql-type="timestamp"/>
+        </property>
+        <property name="alertDate">
+            <column name="alertDate" sql-type="timestamp"/>
+        </property>
+        <property name="title">
+            <column name="title" sql-type="varchar(65)" length="65"/>
+        </property>
+        <property name="subTitle">
+            <column name="subTitle" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="summary">
+            <column name="summary" sql-type="varchar(200)" length="200" not-null="true"/>
+        </property>
+        <property name="content">
+            <column name="content" sql-type="text"/>
+        </property>
+        <property name="alloweCommentLevel">
+            <column name="alloweCommentLevel" sql-type="tinyint(4)"/>
+        </property>
+        <property name="recommendLevel">
+            <column name="recommendLevel" sql-type="char(4)" length="4" not-null="true"/>
+        </property>
+        <property name="clickCount">
+            <column name="clickCount" sql-type="bigint(20)"/>
+        </property>
+        <property name="commentCount">
+            <column name="commentCount" sql-type="bigint(20)"/>
+        </property>
+        <property name="collectCount">
+            <column name="collectCount" sql-type="bigint(20)"/>
+        </property>
+        <property name="topCount">
+            <column name="topCount" sql-type="bigint(20)"/>
+        </property>
+        <property name="downCount">
+            <column name="downCount" sql-type="bigint(20)"/>
+        </property>
+        <many-to-one name="articleCategory" class="edu.jxufe.lvxi.blog.core.persist.entity.article.ArticleCategoryEntity">
+            <column name="categoryID"/>
+        </many-to-one>
+        <many-to-one name="createUser" class="edu.jxufe.lvxi.blog.core.persist.entity.system.UserEntity">
+            <column name="createrID"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

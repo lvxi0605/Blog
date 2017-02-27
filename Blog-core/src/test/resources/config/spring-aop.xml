@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+    <!--<bean name="LoggerAspect" class="LoggerAspect"></bean>-->
+
+</beans>
+
+<!--
+<aop:aspectj-autoproxy />
+    自动为spring容器中那些配置@aspectJ切面的bean创建代理，织入切面。
+    spring在内部依旧采用AnnotationAwareAspectJAutoProxyCreator进行自动代理的创建工作，但具体实现的细节已经被<aop:aspectj-autoproxy />隐藏起来了
+    proxy-target-class属性，默认为false，表示使用jdk动态代理织入增强，
+    poxy-target-class="true"时，表示使用CGLib动态代理技术织入增强。
+    不过即使proxy-target-class设置为false，如果目标类没有声明接口，则spring将自动使用CGLib动态代理。
+-->

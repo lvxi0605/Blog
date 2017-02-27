@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.jxufe.lvxi.blog.core.persist.entity.system.UserEntity" table="tb_sys_user" schema="blog">
+        <id name="id">
+            <column name="ID" sql-type="bigint(20) unsigned"/>
+        </id>
+        <property name="account">
+            <column name="account" sql-type="varchar(30)" length="30"/>
+        </property>
+        <property name="nickname">
+            <column name="nickname" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="sex">
+            <column name="sex" sql-type="tinyint(3) unsigned"/>
+        </property>
+        <property name="icon">
+            <column name="icon" sql-type="varchar(65)" length="65" not-null="true"/>
+        </property>
+        <property name="signature">
+            <column name="signature" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <one-to-one name="userAuth" class="edu.jxufe.lvxi.blog.core.persist.entity.system.UserAuthEntity" foreign-key="account" />
+        <one-to-one name="userExtend" class="edu.jxufe.lvxi.blog.core.persist.entity.system.UserExtendEntity"/>
+        <set name="articleArticles" inverse="true">
+            <key>
+                <column name="createrID"/>
+            </key>
+            <one-to-many not-found="ignore" class="edu.jxufe.lvxi.blog.core.persist.entity.article.ArticleEntity"/>
+        </set>
+        <set name="articleArticleCategories" inverse="true">
+            <key>
+                <column name="createrID"/>
+            </key>
+            <one-to-many not-found="ignore" class="edu.jxufe.lvxi.blog.core.persist.entity.article.ArticleCategoryEntity"/>
+        </set>
+        <set name="roles" inverse="true">
+            <key>
+                <column name="createrID"/>
+            </key>
+            <one-to-many not-found="ignore" class="edu.jxufe.lvxi.blog.core.persist.entity.system.RoleEntity"/>
+        </set>
+        <set name="userRoles" inverse="true">
+            <key>
+                <column name="userID"/>
+            </key>
+            <one-to-many not-found="ignore" class="edu.jxufe.lvxi.blog.core.persist.entity.system.UserRoleEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>

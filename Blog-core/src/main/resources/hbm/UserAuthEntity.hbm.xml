@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.jxufe.lvxi.blog.core.persist.entity.system.UserAuthEntity" table="tb_sys_user_auth" schema="blog">
+        <id name="id" column="ID" >
+            <generator class="identity">
+            </generator>
+        </id>
+        <property name="account">
+            <column name="account" sql-type="varchar(30)" length="30"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="char(32)" length="32"/>
+        </property>
+        <property name="salt">
+            <column name="salt" sql-type="varchar(32)" length="32"/>
+        </property>
+        <property name="activatedEmail">
+            <column name="isActivatedEmail" sql-type="tinyint(1)"/>
+        </property>
+        <property name="lockedAccount">
+            <column name="isLockedAccount" sql-type="tinyint(1)"/>
+        </property>
+        <property name="unlockDate">
+            <column name="unlockDate" sql-type="timestamp"/>
+        </property>
+        <property name="lockedDate">
+            <column name="lockedDate" sql-type="timestamp"/>
+        </property>
+        <property name="needCaptcha">
+            <column name="isNeedCaptcha" sql-type="tinyint(1)"/>
+        </property>
+    </class>
+</hibernate-mapping>

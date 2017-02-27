@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.jxufe.lvxi.blog.core.persist.entity.system.RolePermissionResourceEntity" table="tb_sys_role_permission_resource"
+           schema="blog">
+        <id name="id">
+            <column name="ID" sql-type="int(10) unsigned"/>
+        </id>
+        <property name="permissionResourceId" insert="false" update="false">
+            <column name="permissionResourceID" sql-type="int(10) unsigned"/>
+        </property>
+        <property name="roleId" insert="false" update="false" >
+            <column name="roleID" sql-type="int(10) unsigned"/>
+        </property>
+        <many-to-one name="permissionResource" class="edu.jxufe.lvxi.blog.core.persist.entity.system.PermissionResourceEntity">
+            <column name="permissionResourceID"/>
+        </many-to-one>
+        <many-to-one name="role" class="edu.jxufe.lvxi.blog.core.persist.entity.system.RoleEntity">
+            <column name="roleID"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

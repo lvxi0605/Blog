@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.jxufe.lvxi.blog.core.persist.entity.system.UserExtendEntity" table="tb_sys_user_extend" schema="blog">
+        <id name="id">
+            <column name="ID" sql-type="bigint(20) unsigned"/>
+        </id>
+        <property name="registerDate">
+            <column name="registerDate" sql-type="timestamp"/>
+        </property>
+        <property name="birthday">
+            <column name="birthday" sql-type="date" not-null="true"/>
+        </property>
+        <property name="provinceName">
+            <column name="province" sql-type="varchar(10)" length="10" not-null="true"/>
+        </property>
+        <property name="provinceId" insert="false" update="false">
+            <column name="provinceID" sql-type="int(10) unsigned" not-null="true"/>
+        </property>
+        <property name="cityName">
+            <column name="city" sql-type="varchar(15)" length="15" not-null="true"/>
+        </property>
+        <property name="citId" insert="false" update="false" >
+            <column name="citID" sql-type="int(10) unsigned" not-null="true"/>
+        </property>
+        <property name="areaName">
+            <column name="area" sql-type="varchar(20)" length="20" not-null="true"/>
+        </property>
+        <property name="areaId" insert="false" update="false" >
+            <column name="areaID" sql-type="int(10) unsigned" not-null="true"/>
+        </property>
+        <property name="street">
+            <column name="street" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <many-to-one name="province" class="edu.jxufe.lvxi.blog.core.persist.entity.system.ProvinceEntity">
+            <column name="provinceID" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="city" class="edu.jxufe.lvxi.blog.core.persist.entity.system.CityEntity">
+            <column name="citID" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="area" class="edu.jxufe.lvxi.blog.core.persist.entity.system.AreaEntity">
+            <column name="areaID" not-null="true"/>
+        </many-to-one>
+        <one-to-one name="user" class="edu.jxufe.lvxi.blog.core.persist.entity.system.UserEntity"/>
+    </class>
+</hibernate-mapping>

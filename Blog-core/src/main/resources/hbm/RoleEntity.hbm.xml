@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.jxufe.lvxi.blog.core.persist.entity.system.RoleEntity" table="tb_sys_role" schema="blog">
+        <id name="id">
+            <column name="ID" sql-type="int(10) unsigned"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="code">
+            <column name="code" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="icon">
+            <column name="icon" sql-type="varchar(65)" length="65" not-null="true"/>
+        </property>
+        <property name="description">
+            <column name="description" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="availabale">
+            <column name="isAvailabale" sql-type="tinyint(1)"/>
+        </property>
+        <property name="createdDate">
+            <column name="createdDate" sql-type="timestamp"/>
+        </property>
+        <property name="deadline">
+            <column name="deadline" sql-type="timestamp"/>
+        </property>
+        <property name="createrId" insert="false" update="false">
+            <column name="createrID" sql-type="bigint(20) unsigned"/>
+        </property>
+        <many-to-one name="createrUser" class="edu.jxufe.lvxi.blog.core.persist.entity.system.UserEntity">
+            <column name="createrID"/>
+        </many-to-one>
+        <set name="rolePermissionResources" inverse="true">
+            <key>
+                <column name="roleID"/>
+            </key>
+            <one-to-many not-found="ignore" class="edu.jxufe.lvxi.blog.core.persist.entity.system.RolePermissionResourceEntity"/>
+        </set>
+        <set name="userRoles" inverse="true">
+            <key>
+                <column name="roleID"/>
+            </key>
+            <one-to-many not-found="ignore" class="edu.jxufe.lvxi.blog.core.persist.entity.system.UserRoleEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>

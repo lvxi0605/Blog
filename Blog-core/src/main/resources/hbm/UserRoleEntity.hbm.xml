@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="edu.jxufe.lvxi.blog.core.persist.entity.system.UserRoleEntity" table="tb_sys_user_role" schema="blog">
+        <id name="id">
+            <column name="ID" sql-type="bigint(20) unsigned"/>
+        </id>
+        <property name="authorizedDate">
+            <column name="authorizedDate" sql-type="timestamp"/>
+        </property>
+        <property name="deadline">
+            <column name="deadline" sql-type="timestamp"/>
+        </property>
+        <property name="authorizerId" insert="false" update="false" >
+            <column name="authorizerID" sql-type="bigint(20)"/>
+        </property>
+        <property name="availabale">
+            <column name="isAvailabale" sql-type="tinyint(1)"/>
+        </property>
+        <many-to-one  name="user" class="edu.jxufe.lvxi.blog.core.persist.entity.system.UserEntity" >
+            <column name="userID"/>
+        </many-to-one>
+        <many-to-one name="role" class="edu.jxufe.lvxi.blog.core.persist.entity.system.RoleEntity" >
+            <column name="roleID"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
