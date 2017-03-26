@@ -5,6 +5,10 @@
          version="3.1">
     <display-name>Blog</display-name>
 
+    <!-- 监听容器启动-->
+    <listener >
+        <listener-class>edu.jxufe.lvxi.blog.web.listener.StartupListener</listener-class>
+    </listener>
 
     <!-- 防止发生java.beans.Introspector内存泄露,应将它配置在ContextLoaderListener的前面 -->
     <listener>

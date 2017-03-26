@@ -1,0 +1,35 @@
+@boxBg:blue;
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+@base-color: #111;
+.fontSize(@fontSize:20px){
+  font-size: @fontSize;
+}
+#header {
+  .rounded-corners;
+  color: desaturate(@boxBg, 90%);
+  background-color: gainsboro;
+  min-height: 50px;
+  h1 {
+    font-size: 26px;
+    font-weight: bold;
+  }
+  p { font-size: 12px;
+    a { text-decoration: none;
+        .fontSize(50px);
+      &:hover { border-width: 1px }
+    }
+  }
+
+}
+
+
+#footer {
+  .rounded-corners(10px);
+  .fontSize();
+}
+

@@ -22,6 +22,10 @@ public class BaseController {
 //    @Autowired
 //    private HttpServletResponse response;
 
+    /**
+     * 获取当前登录人的信息
+     * @return
+     */
     protected UserEntity getCurrentUserProfile() {
         return getSubject().getUserEntity();
     }
@@ -30,8 +34,12 @@ public class BaseController {
         return ((UserSubject) SecurityUtils.getSubject());
     }
 
-
-    public static String getIpAddr(HttpServletRequest request) throws Exception {
+    /**
+     * 获取当前登录人的ip
+     * @return
+     * @throws Exception
+     */
+    public  String getIpAddr() throws Exception {
         String ip = request.getHeader("X-Real-IP");
         if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
             return ip;

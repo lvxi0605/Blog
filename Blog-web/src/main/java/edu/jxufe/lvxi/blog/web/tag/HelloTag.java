@@ -4,6 +4,9 @@
 
 package edu.jxufe.lvxi.blog.web.tag;
 
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+
 import javax.servlet.ServletException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -37,7 +40,11 @@ public class HelloTag implements Tag{
     public int doEndTag() throws JspException {
         JspWriter jspWriter =pageContext.getOut();
         try {
+            VelocityEngine ve = new VelocityEngine();
+            VelocityContext context = new VelocityContext();
+           // ve.getTemplate("").merge(context,jspWriter);
             pageContext.getRequest().setAttribute("lvxi","lvxi");
+
             pageContext.include("cs.jsp");
         } catch (ServletException e) {
             e.printStackTrace();

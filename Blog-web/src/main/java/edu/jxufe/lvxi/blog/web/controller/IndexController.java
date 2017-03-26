@@ -11,7 +11,12 @@ public class IndexController extends BaseController{
     @RequestMapping("")
     public String index(){
         System.out.println("访问首页");
-        return ViewMap.INDEX;
+        return IndexViewMap.INDEX;
+    }
+    @RequestMapping("index")
+    public String index2(){
+        System.out.println("访问首页");
+        return IndexViewMap.INDEX;
     }
 
 

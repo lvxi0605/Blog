@@ -11,7 +11,7 @@ import java.util.Collection;
  * Created by lvxi on 2017/2/3.
  */
 public class RoleEntity {
-    private int id;
+    private Integer id;
     @NotEmpty
     @Length(max = 20)
     private String name;
@@ -30,11 +30,11 @@ public class RoleEntity {
     private Collection<RolePermissionResourceEntity> rolePermissionResources;
     private Collection<UserRoleEntity> userRoles;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -122,7 +122,7 @@ public class RoleEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id==null?0:id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (icon != null ? icon.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);

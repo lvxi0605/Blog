@@ -1,13 +1,4 @@
-<%--
-  ~ (c) Copyright 2017 lvxi. All Rights Reserved.
-  --%>
-
-<%--
-  User: lvxi Date: 2017/2/23 22:31
-  Note:
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="lx" uri="http://lvxiblog.cn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -17,7 +8,7 @@
 <html lang="zh-CN">
 <head>
     <title>用户登录</title>
-    <%@include file="/WEB-INF/pages/jsp/common/head.html" %>
+    <%@include file="/WEB-INF/pages/jsp/common/head.jsp" %>
 </head>
 <body>
 <form data-toggle="validator" role="form" class="form-horizontal" action="${basePath}login" method="post">
@@ -63,8 +54,7 @@
         </div>
     </div>
 </form>
-<lx:hello/>
-<%@include file="/WEB-INF/pages/jsp/common/footer.html" %>
+<%@include file="/WEB-INF/pages/jsp/common/footer.jsp" %>
 <script src="/plugins/bootstrap-validator.min.js"></script>
 </body>
 </html>

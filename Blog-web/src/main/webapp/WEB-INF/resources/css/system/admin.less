@@ -1,0 +1,293 @@
+/*******************************************************************************
+ * (c) Copyright 2017 lvxi. All Rights Reserved.
+ ******************************************************************************/
+/*************工具类 begin *****************/
+//字符串超出宽度 ...省略
+.text-overflow-ellipsis{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/*圆角，四个角
+ */
+.border-radius(@radius:0px){
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+/*************工具类 end *****************/
+
+
+/**
+  后台菜单开始
+ */
+//导航
+@header-height:56px;
+.admin-header{
+    height: @header-height;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
+    background-color: #1d365d;
+    border-color: #111f36;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+.admin-title{
+    color:#99FF99;
+    font-size: 15px;
+    height: @header-height;
+    line-height: @header-height;
+    overflow:hidden;
+}
+.admin-navbar{
+    background: #66CCFF;
+    margin: 0px;
+}
+
+.admin-brand{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width:130px;
+    padding-right: 0px;
+}
+.admin-brand img{
+    vertical-align:middle;
+    display: inline-block;
+}
+.admin-btn{
+    padding: 0px;
+    margin: 4px;
+    border: none;
+    background:none;
+}
+
+//下方容器
+.admin-context{
+    @media(min-width: 1200px){
+        position:absolute;
+        height: 100%;
+        width: 100%;
+        top: 0px;
+        padding-top: @header-height;
+        z-index: -10;
+    }
+}
+
+//左侧菜单开始
+
+#leftMenu{
+    @media(min-width: 1200px){
+        width: 180px;
+        height: 100%;
+    }
+    margin:0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    background: #333333;
+}
+#leftMenu .panel-body{
+
+    padding: 5px 3px;
+    @media(max-width: 768px){
+        padding: 0px 3px;
+    }
+    height: 100%;
+    -overflow-y: hidden;
+}
+#leftNav{
+    padding: 0px;
+}
+//左侧垂直菜单
+/*
+@menu-vertical-border: #9acfea 2px solid;
+.menu-vertical{
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.menu-vertical ul {
+    list-style: none;
+    padding-left: 0px;
+    border: @menu-vertical-border;
+}
+
+.menu-vertical ul li{
+    border-bottom:@menu-vertical-border;
+    margin: 3px 1px;
+}
+.menu-vertical ul li a{
+    text-decoration:none;
+    font-size: 16px;
+}
+.menu-vertical ul li a:hover{
+    color: #761c19;
+}
+.menu-vertical ul li a span{
+    margin-right: 3px;
+}*/
+/*
+h1 {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 80px;
+}
+
+h1 a {
+    color: #c12c42;
+    font-size: 16px;
+}
+*/
+
+.accordion {
+    width: 100%;
+    //max-width: 360px;
+    margin: 0px;
+    background: #FFF;
+    list-style-type: none;
+    padding-left: 0px;
+}
+.accordion *  ul{
+    list-style-type: none;
+    padding-left: 0px;
+    width: 100%;
+}
+
+.accordion .link {
+    cursor: pointer;
+    display: block;
+    padding: 15px 15px 15px 10px;
+    color: #4D4D4D;
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid #CCC;
+    position: relative;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    .text-overflow-ellipsis;
+}
+
+.accordion li:last-child .link {
+    border-bottom: 0;
+}
+
+.accordion li i {
+    position: absolute;
+    top: 16px;
+    left: 12px;
+    font-size: 18px;
+    color: #595959;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    .text-overflow-ellipsis;
+}
+
+.accordion li i.glyphicon-menu-down {
+    right: 12px;
+    left: auto;
+    font-size: 16px;
+}
+
+.accordion li.open .link {
+    color: #b63b4d;
+}
+
+.accordion li.open i {
+    color: #b63b4d;
+}
+.accordion li.open i.glyphicon-menu-down {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/**
+ * Submenu
+ -----------------------------*/
+.submenu {
+    display: none;
+    background: #444359;
+    font-size: 14px;
+}
+
+.submenu li {
+    border-bottom: 1px solid #4b4a5e;
+    .text-overflow-ellipsis;
+}
+
+.submenu a {
+    display: block;
+    text-decoration: none;
+    color: #d9d9d9;
+    padding: 12px;
+    padding-left: 42px;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+.submenu a:hover {
+    background: #b63b4d;
+    color: #FFF;
+}
+
+#rightMenu{
+    margin:0px;
+    padding-left: 0px;
+    padding-right: 3px;
+    @media(min-width: 1200px){
+        width: 100%;
+        position: absolute;
+        top:0px;
+        padding-top:56px ;
+        height: 100%;
+        //bottom: 100%;
+        padding-left: 180px;
+        background: burlywood;
+        z-index: -1;
+    }
+}
+#rightMenu .panel-body{
+    margin-bottom: 0px;
+    height: 100%;
+    padding: 3px;
+}
+.left-menu{
+    @media(min-width: 1200px){
+        width: 150px;
+        height: 100%;
+    }
+    padding-left: 0px;
+    padding-right: 2px;
+}
+.left-menu-panel{
+    height: 100%;
+    margin-bottom: 0px;
+    background-color: lighten(#1d365d, 15%);
+    overflow-y: hidden;
+    //#0099FF;
+
+}
+
+.right-context{
+    @media(min-width: 1200px){
+        width: 100%;
+        height: 100%;
+        bottom: 100%;
+        padding-left: 150px;
+        background: burlywood;
+        z-index: -1;
+    }
+}
+
+//导航开始
+
+
+//测试使用
+.test-bg-red{
+    background-color: red;
+}
+.test-border{
+    border:1px solid red;
+}

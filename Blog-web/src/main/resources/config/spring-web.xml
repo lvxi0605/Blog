@@ -67,6 +67,8 @@
     <mvc:resources mapping="/css/**" location="/WEB-INF/resources/css/" />
     <mvc:resources mapping="/html/**" location="/WEB-INF/resources/html/" />
     <mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/" />
+    <mvc:resources mapping="/less/**" location="/WEB-INF/resources/less/" />
+    <mvc:resources mapping="/image/**" location="/WEB-INF/resources/image/" />
     <!--注册数据转换类-->
     <!--<mvc:annotation-driven conversion-service="converterUtil" />-->
     <!--<bean id="converterUtil" class="org.springframework.context.support.ConversionServiceFactoryBean">-->

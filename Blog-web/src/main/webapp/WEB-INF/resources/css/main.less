@@ -1,0 +1,75 @@
+.defalut-font {
+    font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    .defalut-font;
+}
+
+.form-title {
+    .defalut-font;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    padding: 3px 0px;
+}
+/*
+.col-centered{
+    float: none !important;
+    margin: 0 auto;
+}
+.col-no-padding *[class^='col'] {
+    padding: 0px;
+}
+.col-sm-padding{
+    padding: 0px 6px;
+}*/
+/**
+使得form中的label想input靠
+ */
+@compact-padding-left:10px;
+@compact-padding-right:10px;
+@compact-magin-left:10px;
+.form-label-compact label[class*='col']{
+    padding-right: 0px;
+}
+.form-label-compact label[class*='col'] + div[class*='col']{
+    padding-left:@compact-padding-left;
+}
+.form-label-compact div[class='form-group']{
+    margin-bottom: 8px;
+}
+
+.col-left-compact{
+    padding-left:@compact-padding-left;
+
+}
+.col-right-compact{
+    padding-left:@compact-padding-right;
+
+}
+.col-vertical-compact{
+
+}
+.row-left-no-margin{
+    margin-left:0px;
+}
+.row-right-no-margin{
+    margin-right:0px;
+}
+.row-horizontal-no-margin{
+    .row-left-no-margin;
+    .row-right-no-margin;
+}
+.col-horizontal-compact{
+    .col-left-compact;
+    .col-right-compact;
+}
+
+
+//测试使用
+.test-bg-red{
+    background-color: red;
+}
+.test-border{
+    border:1px solid red;
+}

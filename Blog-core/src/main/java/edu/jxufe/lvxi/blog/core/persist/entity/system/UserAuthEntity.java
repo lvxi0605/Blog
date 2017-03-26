@@ -1,5 +1,7 @@
 package edu.jxufe.lvxi.blog.core.persist.entity.system;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
@@ -10,10 +12,12 @@ import java.sql.Timestamp;
 public class UserAuthEntity {
     private long id;
     @NotNull(message = "账户不能为空!")
-    @Pattern( regexp = "^[_A-z0-9]{4,30}$" ,message = "用户名要是英文字母,数字,下划线_,长度4-30位。")
+    @Pattern( regexp = "^[_A-z0-9]{4,30}$" ,message = "用户名要是英文字母,数字,下划线_,长度4至30位。")
     private String account;
     @NotNull(message = "密码不能为空!")
+    @Length(min = 6,max = 32 , message="密码长度要为6至32位。")
     private String password;
+
     private String salt;
     private boolean activatedEmail;
     private boolean lockedAccount;

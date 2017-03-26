@@ -2,7 +2,9 @@ package edu.jxufe.lvxi.blog.web.controller;
 
 import edu.jxufe.lvxi.blog.core.persist.entity.system.UserAuthEntity;
 import edu.jxufe.lvxi.blog.core.persist.service.system.UserService;
+import edu.jxufe.lvxi.blog.web.aop.annotation.UserDataVerify;
 import edu.jxufe.lvxi.blog.web.util.PasswordUtils;
+import edu.jxufe.lvxi.blog.web.util.error.ErrorUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -26,11 +28,21 @@ public class LoginController extends BaseController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 登录页面
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginView(){
-        return ViewMap.LOGIN;
+        return IndexViewMap.LOGIN;
     }
 
+    /**
+     * 登录验证
+     * @param userAuthEntity
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginCheck(@Valid UserAuthEntity userAuthEntity, BindingResult bindingResult) {
 
@@ -51,17 +63,27 @@ public class LoginController extends BaseController {
         }
         if (StringUtils.isNotBlank(loginError)){
             getRequest().setAttribute("loginError",loginError);
-            return ViewMap.LOGIN;
+            return IndexViewMap.LOGIN;
         }
 
-        return ViewMap.INDEX;
+        return redirect(IndexViewMap.INDEX);
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String regiserView() {
+        return IndexViewMap.REGISTER;
     }
 
+    @UserDataVerify(errorPage = IndexViewMap.REGISTER)
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String regiserCheck(@Valid UserAuthEntity userAuthEntity, BindingResult bindingResult) {
         logger.debug("用户注册" + userAuthEntity.getAccount());
-        if (bindingResult.hasErrors()) return "redirect:/html/user/register.html";
 
+        boolean isExistUser = userService.isExistUser(userAuthEntity.getAccount());
+        if(isExistUser) {
+            //该账号已经注册
+            ErrorUtils.addError("该账号已经被注册了");
+            return IndexViewMap.REGISTER;
+        }
         //随机产生32位盐
         String randSalt = RandomStringUtils.randomAlphanumeric(32);
         userAuthEntity.setSalt(randSalt);
@@ -70,6 +92,16 @@ public class LoginController extends BaseController {
         userAuthEntity.setPassword(PasswordUtils.md5(userAuthEntity.getPassword(), userAuthEntity.getSalt(), 2));
         userService.register(userAuthEntity);
 
-        return "redirect:/html/user/login.jsp";
+        return redirect(IndexViewMap.LOGIN);
+    }
+
+    /**
+     * 退出
+     * @return
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(){
+        getSubject().logout();
+        return redirect(IndexViewMap.INDEX);
     }
 }

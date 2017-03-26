@@ -10,4 +10,5 @@ public interface UserService {
      UserAuthEntity register(UserAuthEntity userAuthEntity);
      UserAuthEntity findUserAuthByAccount(String account);
      UserEntity findUserByAccount(String account);
+     boolean isExistUser(String account);
 }

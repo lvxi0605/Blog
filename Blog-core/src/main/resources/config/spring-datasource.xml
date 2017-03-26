@@ -67,8 +67,6 @@
         <property name="dataSource">
             <ref bean="dataSource"/>
         </property>
-
-
         <property name="hibernateProperties">
             <props>
                 <!-- 指定数据库方言 -->
@@ -89,12 +87,6 @@
             </props>
         </property>
 
-        <!--<property name="mappingDirectoryLocations">-->
-            <!--<list>-->
-                <!--<value>hbm</value>&lt;!&ndash; 加载hibernate的映射文件*.hbm.xml &ndash;&gt;-->
-            <!--</list>-->
-        <!--</property>-->
-
         <property name="mappingLocations">
             <list>
                 <value>classpath*:hbm/*.hbm.xml</value>
@@ -107,6 +99,27 @@
         <property name="sessionFactory">
             <ref bean="sessionFactory"/>
         </property>
+    </bean>
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 自动扫描mapping.xml文件 -->
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mapping/*.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="edu.jxufe.lvxi.blog.core.persist.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>
+
+    <bean class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
     </bean>
 
 

@@ -1,7 +1,8 @@
 package edu.jxufe.lvxi.blog.web.aop.aspect;
 
-import edu.jxufe.lvxi.blog.base.data.Data;
-import edu.jxufe.lvxi.blog.web.aop.annotation.NeedPostDataVerifyMessage;
+import edu.jxufe.lvxi.blog.web.aop.annotation.UserDataVerify;
+import edu.jxufe.lvxi.blog.web.util.error.ErrorUtils;
+import edu.jxufe.lvxi.blog.web.util.message.MessageUtils;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -12,7 +13,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -39,45 +40,61 @@ public class DataCheckAspect implements Ordered {
      * @return
      * @throws Throwable
      */
-    @Around("@annotation(edu.jxufe.lvxi.blog.web.aop.annotation.NeedPostDataVerifyMessage)")
+    @Around("@annotation(edu.jxufe.lvxi.blog.web.aop.annotation.UserDataVerify)")
     public Object poress(ProceedingJoinPoint pjp) throws Throwable {
 
         Method currentMethod = getCurrentMethod(pjp);
         Object[] args = pjp.getArgs();
-        NeedPostDataVerifyMessage dataVerifyMessageAnn = AnnotationUtils.findAnnotation(currentMethod, NeedPostDataVerifyMessage.class);
-
+        UserDataVerify dataVerifyMessageAnn = AnnotationUtils.findAnnotation(currentMethod, UserDataVerify.class);
+        Object retValue=null; //返回的值
+        boolean isErrorData=false;
         if (args.length > 1) {
             for (int i = 1; i < args.length; i++) {
                 if (args[i] instanceof BindingResult) {
                     BindingResult bindingResult = (BindingResult) args[i];
                     if (bindingResult.hasErrors()) {
-                        List<ObjectError> errors = bindingResult.getAllErrors();
-                        StringBuilder message = new StringBuilder();
-                        for (int errIndex = 0; errIndex < errors.size(); ) {
-                            ObjectError error = errors.get(errIndex);
-                            errIndex++;
-                            message.append(errIndex);
-                            message.append(". ");
-                            message.append(error.getDefaultMessage());
-                            message.append("\n");
+                        List<FieldError>  errors = bindingResult.getFieldErrors();
+                        for (int errIndex = 0; errIndex < errors.size(); errIndex++) {
+                            FieldError error = errors.get(errIndex);
+                            ErrorUtils.addError(error.getField(),error.getDefaultMessage());
+                            logger.debug(error.getField());
                         }
                         logger.debug("数据校验有误!!!!!");
-
-                        if (isAjax(currentMethod)){
-                            return Data.failure(message.toString());
-                        }
-
+                        isErrorData=true;
+                        break; //不校验其他对象
 
                     }
                 }
             }
+            if(isErrorData){
+                //有错误的数据
+                if(!dataVerifyMessageAnn.errorStop()){
+                    retValue= pjp.proceed();
+                }
+                else {
+                    //不执行controller
+                    if (isAjax(currentMethod)){
+                        return MessageUtils.failure(ErrorUtils.toStringMessage());
+                    }
+                    else {
+                        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+                        String errorPage = dataVerifyMessageAnn.errorPage();
+                        logger.debug("跳转 => "+errorPage);
+                        return errorPage;
+                    }
+
+                }
+            }else{
+                //数据没有错，执行controller
+                retValue= pjp.proceed();
+            }
+
+
+        }else{
+            //没有数据要校验
+            retValue= pjp.proceed();
         }
-        Object retValue=null;
-        if(dataVerifyMessageAnn.errorStop()) retValue= pjp.proceed();
-        else {
-            HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            retValue=req.getRequestURL().toString();
-        }
+
 
         return retValue;
     }

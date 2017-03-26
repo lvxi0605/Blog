@@ -3,6 +3,7 @@ package edu.jxufe.lvxi.blog.core.persist.dao.system;
 import edu.jxufe.lvxi.blog.core.persist.entity.system.UserAuthEntity;
 import edu.jxufe.lvxi.blog.core.persist.dao.base.BaseDao;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
@@ -31,6 +32,11 @@ public class UserAuthDao extends BaseDao<UserAuthEntity> {
     public UserAuthEntity findUserAuthByAccount(String account) {
         String hql = "from UserAuthEntity ua where ua.account = ?";
         return (UserAuthEntity)uniqueQuery(hql,account);
+    }
+
+    public boolean isExistUser(String account){
+        Assert.assertNotNull(account);
+        return (Long)(getSqlSessionTemplate().selectOne("UserAuth.findUserCount",account))>0;
     }
 
 
